@@ -20,6 +20,7 @@ additional sub domains delegated to Azure DNS.
 
 ## Files
 
-* [main.tf](main.tf)
+* [gsuite.tf](gsuite.tf)
+* [azure_dns_delegation.tf](azure_dns_delegation.tf)
 * [provider.tf](provider.tf)
 * [variables.tf](variables.tf)

@@ -23,11 +23,15 @@ resource "cloudflare_record" "google_mx" {
 }
 
 # Add CNAME Records for GSuite Services
-resource "cloudflare_record" "google_calendar" {
-  count = "${length(vars.gsuite_aliases) * var.gmail_mx_enable}"
+resource "cloudflare_record" "gsuite_aliases" {
+  count = "${length(var.gsuite_aliases) * var.gmail_mx_enable}"
   domain = "${var.domain_name}"
-  name = "${vars.gsuite_aliases[count.index]"
+  name = "${var.gsuite_aliases[count.index]}"
   value = "ghs.google.com"
   type  = "CNAME"
   ttl = 3600
+  depends_on = [
+    "cloudflare_record.google_site_verification",
+    "cloudflare_record.google_mx",
+  ]
 }

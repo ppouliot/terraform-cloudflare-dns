@@ -19,7 +19,7 @@ variable "gmail_mx_enable" {
   default     = 0
 }
 
-variable "az_zone_deligation_enable" {
+variable "az_zone_delegation_enable" {
   description = "Enable a Delegated Zone in Azure DNS"
   default     = 0
 }
