@@ -1,5 +1,6 @@
 # TXT Record for GMail Verification
 resource "cloudflare_record" "google_gmail_txt_verify" {
+  count  = "${var.google_site_verification_token != "" ? 1:0}
   domain = "${var.domain_name}"
   name   = "@"
   value = "${var.google_site_verification_token}"
