@@ -11,8 +11,8 @@ resource "cloudflare_record" "www_gh-pages" {
   count = "${var.gh_pages_apex_domain_enable}"
   domain = "${var.domain_name}"
   name = "www"
-  value = "$(var.domain_name)"
-  type  = "A"
+  value = "@"
+  type  = "CNAME"
   ttl = 3600
   depends_on = ["cloudflare_record.gh_pages_http_servers"]
 }
