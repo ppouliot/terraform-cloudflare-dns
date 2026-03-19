@@ -2,20 +2,20 @@
 
 # TXT Record for GMail Verification
 resource "cloudflare_record" "google_site_verification" {
-  count   = var.gmail_mx_enable && var.google_site_verification_token != "" ? 1 : 0
+  count   = var.gsuite.mx_enable && var.gsuite.site_verification_token != "" ? 1 : 0
   zone_id = var.zone_id
   name    = "@"
-  value   = var.google_site_verification_token
+  value   = var.gsuite.site_verification_token
   type    = "TXT"
   ttl     = 3600
 }
 
 # MX record for Zone
 resource "cloudflare_record" "google_mx" {
-  count    = var.gmail_mx_enable ? length(var.gmail_mx_servers) : 0
+  count    = var.gsuite.mx_enable ? length(var.gsuite.mx_servers) : 0
   zone_id  = var.zone_id
   name     = "mail"
-  value    = var.gmail_mx_servers[count.index]
+  value    = var.gsuite.mx_servers[count.index]
   priority = count.index + 1
   type     = "MX"
   ttl      = 3600
@@ -23,7 +23,7 @@ resource "cloudflare_record" "google_mx" {
 
 # Add CNAME Records for GSuite Services
 resource "cloudflare_record" "gsuite_aliases" {
-  for_each = var.gmail_mx_enable ? toset(var.gsuite_aliases) : []
+  for_each = var.gsuite.mx_enable ? toset(var.gsuite.aliases) : []
 
   zone_id = var.zone_id
   name    = each.value
